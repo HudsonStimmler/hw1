@@ -212,46 +212,70 @@ void ULListStr::pop_front(){
 }
 
 std::string const & ULListStr::back() const{
+  // Create an empty string
   static std::string emptyString;
+  // If the list is empty
   if(head_ == NULL && tail_ == NULL){
+    // Return an empty string
     return emptyString;
   }
+  // If there are no items in the tail
   else if(tail_->last - tail_->first == 0){
+    // Return empty string
     return emptyString;
   }
   else{
+    // Return the last element
     return tail_->val[tail_->last-1];
   }
 }
 
 std::string const & ULListStr::front() const{
+  // Create an empty string
   static std::string emptyString;
+  // If the list is empty
   if(head_ == NULL && tail_ == NULL){
+    // Return an empty string
     return emptyString;
   }
+  // If there are no items in the head
   else if(head_->last - head_->first == 0){
+    // Return an empty string
     return emptyString;
   }
   else{
+    // Return the first item
     return head_->val[head_->first];
   }
 }
 
 std::string* ULListStr::getValAtLoc(size_t loc) const{
+  // If loc is bigger than the list size
   if (loc >= size_) {
+    // Return nothing
     return NULL;
   }
+  // Make a current pointer that holds the first Item
   Item* curr = head_;
+  // Make an index variable
   size_t i = 0; 
+  //While the current item is not null
   while (curr != NULL) {
+    // Make a variable to keep track of values in the current item
     size_t count = curr->last - curr->first;
+    // If the index plus all the count of all values in the item is greater than loc
     if (i + count > loc) {
+      // Find an offset value
       size_t offset = loc - i;
+      // Use offset value to return item
       return &(curr->val[curr->first + offset]);
     }
+    // Increment index
     i += count;
+    // Go to the next item
     curr = curr->next;
   }
+  // Hopefully never get here
   return NULL;
 }
 
